@@ -9,7 +9,7 @@ import com.eliseunetto.bookstore.services.DBService;
 
 @Configuration
 @Profile("test")
-public class TesteConfig {
+public class TestConfig {
 
 	@Autowired
 	private DBService dbService;
