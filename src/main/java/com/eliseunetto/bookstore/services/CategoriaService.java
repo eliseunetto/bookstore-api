@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.eliseunetto.bookstore.domain.Categoria;
 import com.eliseunetto.bookstore.dtos.CategoriaDTO;
 import com.eliseunetto.bookstore.repositories.CategoriaRepository;
+import com.eliseunetto.bookstore.services.exceptions.DataIntegrityViolationException;
 import com.eliseunetto.bookstore.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -41,6 +42,10 @@ public class CategoriaService {
 	
 	public void delete(Integer id) {
 		findById(id);
-		repo.deleteById(id);
+		try {
+			repo.deleteById(id);
+		} catch (Exception e) {
+			throw new DataIntegrityViolationException("Categoria não pode ser deletado! Possui livros associados.");
+		}
 	}
 }
